@@ -1,0 +1,51 @@
+version: v1.0
+name: Android CI Pipeline
+
+# Definimos bloques del pipeline
+blocks:
+  - name: Setup Android Environment
+    task:
+      prologue:
+        commands:
+          # Instalación del entorno Android SDK
+          - echo "Setting up Android environment..."
+          - curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -o android_tools.zip
+          - unzip android_tools.zip -d $ANDROID_HOME/cmdline-tools
+          - mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/tools
+          - yes | sdkmanager --licenses
+          - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
+      commands:
+        # Sincronización de dependencias
+        - ./gradlew dependencies
+
+  - name: Build Project
+    task:
+      prologue:
+        commands:
+          # Configurar Java y Gradle
+          - echo "Setting up Java and Gradle..."
+          - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+      commands:
+        # Compilar la aplicación
+        - ./gradlew assembleDebug
+
+  - name: Run Tests
+    task:
+      commands:
+        # Ejecutar pruebas unitarias
+        - ./gradlew test
+
+  - name: Generate APK
+    task:
+      commands:
+        # Generar el APK listo para distribución
+        - ./gradlew assembleRelease
+
+pipelines:
+  default:
+    # Definimos el orden de los bloques
+    blocks:
+      - name: Setup Android Environment
+      - name: Build Project
+      - name: Run Tests
+      - name: Generate APK
