@@ -1,0 +1,7 @@
+# ...
+after_pipeline:
+  task:
+    jobs:
+      - name: Merge reports
+        commands:
+          - test-results gen-pipeline-report
