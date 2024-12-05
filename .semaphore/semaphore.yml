@@ -36,9 +36,4 @@ blocks:
             - echo "Ejecutando pruebas unitarias..."
             - ./gradlew test
 
-pipelines:
-  default:
-    blocks:
-      - name: Setup Android Environment
-      - name: Build Project
-      - name: Run Unit Tests
+
