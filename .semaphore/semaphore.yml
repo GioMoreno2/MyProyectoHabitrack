@@ -2,11 +2,6 @@ version: "v1.0"
 
 name: Android Layout Test Pipeline
 
-agent:
-  machine:
-    type: e1-medium  # Tipo de máquina válido
-    os_image: ubuntu2004  # Imagen del sistema operativo válida
-
 blocks:
   - name: Validate Layouts
     task:
