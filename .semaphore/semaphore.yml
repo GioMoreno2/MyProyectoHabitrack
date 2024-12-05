@@ -4,8 +4,8 @@ name: Android Simple Test Pipeline
 
 agent:
   machine:
-    type: e1-standard-2  # Define el tipo de máquina para ejecutar
-    os_image: ubuntu-20.04  # Sistema operativo
+    type: e1-standard-2  # Tipo de máquina para el agente
+    os_image: ubuntu-20.04  # Imagen del sistema operativo
 
 blocks:
   - name: Setup Android Environment
