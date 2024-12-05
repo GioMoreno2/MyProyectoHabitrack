@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "60286389461",
+    "project_id": "habitrack-d833f",
+    "storage_bucket": "habitrack-d833f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60286389461:android:aba7159890e32a70b9665c",
+        "android_client_info": {
+          "package_name": "com.gio.myhabitrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkD5KA6ChAPNGs0rEZc3MfZjKuK0bojzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60286389461:android:d96c22c4bd51f12bb9665c",
+        "android_client_info": {
+          "package_name": "com.gio.myproyectohabitrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkD5KA6ChAPNGs0rEZc3MfZjKuK0bojzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
