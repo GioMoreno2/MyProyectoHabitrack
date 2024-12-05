@@ -6,7 +6,6 @@ blocks:
     task:
       prologue:
         commands:
-          # Instalar herramientas necesarias para el SDK de Android
           - echo "Instalando el SDK de Android..."
           - curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -o android_tools.zip
           - unzip android_tools.zip -d $ANDROID_HOME/cmdline-tools
@@ -14,19 +13,16 @@ blocks:
           - yes | sdkmanager --licenses
           - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
       commands:
-        # Sincroniza las dependencias del proyecto
         - ./gradlew dependencies
 
   - name: Build Project
     task:
       commands:
-        # Construir el proyecto en modo Debug
         - ./gradlew assembleDebug
 
   - name: Run Unit Tests
     task:
       commands:
-        # Ejecutar pruebas unitarias usando JUnit
         - ./gradlew test
 
 pipelines:
