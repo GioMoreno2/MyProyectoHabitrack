@@ -1,7 +1,37 @@
-# ...
-after_pipeline:
-  task:
-    jobs:
-      - name: Merge reports
+version: v1.0
+name: Android Simple Test Pipeline
+
+blocks:
+  - name: Setup Android Environment
+    task:
+      prologue:
         commands:
-          - test-results gen-pipeline-report
+          # Instalar herramientas necesarias para el SDK de Android
+          - echo "Instalando el SDK de Android..."
+          - curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -o android_tools.zip
+          - unzip android_tools.zip -d $ANDROID_HOME/cmdline-tools
+          - mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/tools
+          - yes | sdkmanager --licenses
+          - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
+      commands:
+        # Sincroniza las dependencias del proyecto
+        - ./gradlew dependencies
+
+  - name: Build Project
+    task:
+      commands:
+        # Construir el proyecto en modo Debug
+        - ./gradlew assembleDebug
+
+  - name: Run Unit Tests
+    task:
+      commands:
+        # Ejecutar pruebas unitarias usando JUnit
+        - ./gradlew test
+
+pipelines:
+  default:
+    blocks:
+      - name: Setup Android Environment
+      - name: Build Project
+      - name: Run Unit Tests
