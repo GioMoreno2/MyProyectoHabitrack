@@ -4,40 +4,37 @@ name: Android Simple Test Pipeline
 
 agent:
   machine:
-    type: e1-standard-2  # Tipo de máquina o agente para ejecutar las tareas
-    os_image: ubuntu-2004  # Imagen del sistema operativo
+    type: e1-standard-2  # Define el tipo de máquina para ejecutar
+    os_image: ubuntu-20.04  # Sistema operativo
 
 blocks:
   - name: Setup Android Environment
     task:
-      prologue:
-        commands:
-          - echo "Configurando el entorno de Android..."
-          - curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -o android_tools.zip
-          - unzip android_tools.zip -d $ANDROID_HOME/cmdline-tools
-          - mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/tools
-          - yes | sdkmanager --licenses
-          - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
-      main:
-        commands:
-          - echo "Comprobando la existencia del archivo activity_main_login.xml..."
-          - ls app/src/main/res/layout/activity_main_login.xml || echo "Archivo no encontrado"
-          - echo "Verificando dependencias del proyecto..."
-          - ./gradlew dependencies
+      jobs:
+        - name: Setup Job
+          commands:
+            - echo "Configurando el entorno de Android..."
+            - curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -o android_tools.zip
+            - unzip android_tools.zip -d $ANDROID_HOME/cmdline-tools
+            - mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/tools
+            - yes | sdkmanager --licenses
+            - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
 
   - name: Build Project
     task:
-      main:
-        commands:
-          - echo "Construyendo el proyecto..."
-          - ./gradlew assembleDebug
+      jobs:
+        - name: Build Job
+          commands:
+            - echo "Construyendo el proyecto..."
+            - ./gradlew assembleDebug
 
   - name: Run Unit Tests
     task:
-      main:
-        commands:
-          - echo "Ejecutando pruebas unitarias..."
-          - ./gradlew test
+      jobs:
+        - name: Test Job
+          commands:
+            - echo "Ejecutando pruebas unitarias..."
+            - ./gradlew test
 
 pipelines:
   default:
