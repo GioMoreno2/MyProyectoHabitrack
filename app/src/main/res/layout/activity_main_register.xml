@@ -4,11 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:orientation="vertical"
+    android:gravity="center"
+    android:background="#950288D1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity_register">
 
-    <!-- Nombre de usuario -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivWelcomeImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:contentDescription="Imagen de bienvenida"
+        android:layout_marginBottom="16dp"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"/>
+
+
+    <TextView
+        android:id="@+id/tvWelcomeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Registrate en Habitrack!"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
+
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
@@ -16,7 +39,7 @@
         android:hint="Username"
         android:layout_marginTop="20dp" />
 
-    <!-- Nombre -->
+
     <EditText
         android:id="@+id/etFirstName"
         android:layout_width="match_parent"
@@ -25,7 +48,7 @@
         android:layout_below="@id/etUsername"
         android:layout_marginTop="20dp" />
 
-    <!-- Apellidos -->
+
     <EditText
         android:id="@+id/etLastName"
         android:layout_width="match_parent"
@@ -34,7 +57,7 @@
         android:layout_below="@id/etFirstName"
         android:layout_marginTop="20dp" />
 
-    <!-- Estado -->
+
     <EditText
         android:id="@+id/etState"
         android:layout_width="match_parent"
@@ -43,7 +66,7 @@
         android:layout_below="@id/etLastName"
         android:layout_marginTop="20dp" />
 
-    <!-- Correo electrónico -->
+
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
@@ -52,7 +75,7 @@
         android:layout_below="@id/etState"
         android:layout_marginTop="20dp" />
 
-    <!-- Contraseña -->
+
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
@@ -62,14 +85,21 @@
         android:layout_below="@id/etEmail"
         android:layout_marginTop="20dp" />
 
-    <!-- Botón de registro -->
+
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:text="Registrarme"
         android:layout_below="@id/etPassword"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:backgroundTint="@color/azul"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:elevation="8dp"
+        android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true" />
 
 

@@ -74,6 +74,9 @@ public class MainActivity_register extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                Intent intent = new Intent(MainActivity_register.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
                                 saveUserDataToDatabase(username, firstName, lastName, email, state);
                             } else {
                                 handleRegistrationError(task.getException());
