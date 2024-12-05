@@ -4,18 +4,25 @@ name: Android Simple Test Pipeline
 
 agent:
   machine:
-    type: e1-standard-2  # Define el tipo de máquina o agente para ejecutar las tareas
-    os_image: ubuntu-2004  # Define la imagen del sistema operativo
+    type: e1-standard-2  # Tipo de máquina o agente para ejecutar las tareas
+    os_image: ubuntu-2004  # Imagen del sistema operativo
 
 blocks:
   - name: Setup Android Environment
     task:
       prologue:
         commands:
-          - C:\Users\GioMoreno\AndroidStudioProjects\MyHabitrack/app/src/main/res/activity_main_login.xml
+          - echo "Configurando el entorno de Android..."
+          - curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -o android_tools.zip
+          - unzip android_tools.zip -d $ANDROID_HOME/cmdline-tools
+          - mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/tools
+          - yes | sdkmanager --licenses
+          - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
       main:
         commands:
-          - echo "Comprobando dependencias..."
+          - echo "Comprobando la existencia del archivo activity_main_login.xml..."
+          - ls app/src/main/res/layout/activity_main_login.xml || echo "Archivo no encontrado"
+          - echo "Verificando dependencias del proyecto..."
           - ./gradlew dependencies
 
   - name: Build Project
