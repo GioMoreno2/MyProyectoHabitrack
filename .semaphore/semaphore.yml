@@ -4,22 +4,10 @@ name: Android Layout Test Pipeline
 
 agent:
   machine:
-    type: e1-medium  # Cambiado a un tipo de máquina válido
-    os_image: ubuntu2004  # Imagen de sistema operativo válida
+    type: e1-medium  # Tipo de máquina válido
+    os_image: ubuntu2004  # Imagen del sistema operativo válida
 
 blocks:
-  - name: Setup Android Environment
-    task:
-      jobs:
-        - name: Setup Job
-          commands:
-            - echo "Configurando el entorno de Android..."
-            - curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -o android_tools.zip
-            - unzip android_tools.zip -d $ANDROID_HOME/cmdline-tools
-            - mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/tools
-            - yes | sdkmanager --licenses
-            - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
-
   - name: Validate Layouts
     task:
       jobs:
