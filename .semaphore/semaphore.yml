@@ -4,8 +4,8 @@ name: Android Layout Test Pipeline
 
 agent:
   machine:
-    type: e1-standard  # Tipo de máquina actualizado
-    os_image: ubuntu2004  # Imagen del sistema operativo actualizada
+    type: e1-medium  # Cambiado a un tipo de máquina válido
+    os_image: ubuntu2004  # Imagen de sistema operativo válida
 
 blocks:
   - name: Setup Android Environment
