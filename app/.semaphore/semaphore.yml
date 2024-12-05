@@ -1,0 +1,63 @@
+version: v1.0
+name: Android CI Pipeline
+
+agent:
+  machine:
+    type: e1-standard-2 # Usamos la máquina de tipo estándar de Semaphore
+    os: android-21 # Selecciona una máquina con una imagen de Android preconfigurada
+
+workflows:
+  version: "1"
+  workflows:
+    - name: Build and Test
+      jobs:
+        - build
+        - test
+        - deploy
+
+jobs:
+  build:
+    docker:
+      - image: circleci/android:api-29
+    steps:
+      - checkout  https://github.com/GioMoreno2/MyProyectoHabitrack
+      - run:
+          name: Set up SDK
+          command: |
+            echo "Setting up Android SDK..."
+            sudo apt-get update
+            sudo apt-get install -y openjdk-8-jdk
+            wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip
+            unzip commandlinetools-linux-7583922_latest.zip
+            sudo mv cmdline-tools /usr/local/android-sdk
+            export ANDROID_HOME=/usr/local/android-sdk
+            export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+            sdkmanager --licenses
+            sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.3"
+      - run:
+          name: Build APK
+          command: |
+            echo "Building APK..."
+            ./gradlew clean build
+
+  test:
+    docker:
+      - image: circleci/android:api-29
+    steps:
+      - checkout  https://github.com/GioMoreno2/MyProyectoHabitrack
+      - run:
+          name: Run unit tests
+          command: |
+            echo "Running unit tests..."
+            ./gradlew testDebugUnitTest
+
+  deploy:
+    docker:
+      - image: circleci/android:api-29
+    steps:
+      - checkout
+      - run:
+          name: Deploy APK
+          command: |
+            echo "Deploying APK..."
+            # Aquí puedes añadir el paso para despliegue, como subir a un servidor o Google Play
