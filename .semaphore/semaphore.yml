@@ -12,12 +12,7 @@ blocks:
     task:
       prologue:
         commands:
-          - echo "Instalando el SDK de Android..."
-          - curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -o android_tools.zip
-          - unzip android_tools.zip -d $ANDROID_HOME/cmdline-tools
-          - mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/tools
-          - yes | sdkmanager --licenses
-          - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
+          - C:\Users\GioMoreno\AndroidStudioProjects\MyHabitrack/app/src/main/res/activity_main_login.xml
       main:
         commands:
           - echo "Comprobando dependencias..."
