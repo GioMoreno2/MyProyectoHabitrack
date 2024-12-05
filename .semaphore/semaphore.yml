@@ -1,6 +1,6 @@
 version: "v1.0"
 
-name: Android Simple Test Pipeline
+name: Android Layout Test Pipeline
 
 agent:
   machine:
@@ -20,6 +20,17 @@ blocks:
             - yes | sdkmanager --licenses
             - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
 
+  - name: Validate Layouts
+    task:
+      jobs:
+        - name: Layout Validation Job
+          commands:
+            - echo "Validando layouts de Android..."
+            - ./gradlew lint  # Lint para verificar errores en los layouts XML
+            - echo "Comprobando el archivo activity_main.xml..."
+            - test -f app/src/main/res/layout/activity_main.xml || (echo "Archivo activity_main.xml no encontrado" && exit 1)
+            - echo "Archivo activity_main.xml encontrado correctamente"
+
   - name: Build Project
     task:
       jobs:
@@ -36,4 +47,10 @@ blocks:
             - echo "Ejecutando pruebas unitarias..."
             - ./gradlew test
 
-
+pipelines:
+  default:
+    blocks:
+      - name: Setup Android Environment
+      - name: Validate Layouts
+      - name: Build Project
+      - name: Run Unit Tests
