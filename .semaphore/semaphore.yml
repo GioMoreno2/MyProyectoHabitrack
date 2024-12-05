@@ -4,8 +4,8 @@ name: Android Layout Test Pipeline
 
 agent:
   machine:
-    type: e1-standard-2  # Tipo de máquina para el agente
-    os_image: ubuntu-20.04  # Imagen del sistema operativo
+    type: e1-standard  # Tipo de máquina actualizado
+    os_image: ubuntu2004  # Imagen del sistema operativo actualizada
 
 blocks:
   - name: Setup Android Environment
@@ -26,7 +26,7 @@ blocks:
         - name: Layout Validation Job
           commands:
             - echo "Validando layouts de Android..."
-            - ./gradlew lint  # Lint para verificar errores en los layouts XML
+            - ./gradlew lint
             - echo "Comprobando el archivo activity_main.xml..."
             - test -f app/src/main/res/layout/activity_main.xml || (echo "Archivo activity_main.xml no encontrado" && exit 1)
             - echo "Archivo activity_main.xml encontrado correctamente"
