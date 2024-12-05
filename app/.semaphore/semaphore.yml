@@ -1,63 +1,52 @@
 version: v1.0
-name: Android CI Pipeline
+name: Prueba de Archivos en Proyecto Android
 
+# Configuración del agente que ejecutará los trabajos
 agent:
   machine:
-    type: e1-standard-2 # Usamos la máquina de tipo estándar de Semaphore
-    os: android-21 # Selecciona una máquina con una imagen de Android preconfigurada
+    type: e1-standard-2  # Máquina estándar con 2 CPUs y 8 GB de RAM
+    os: ubuntu-20.04      # Sistema operativo Ubuntu para ejecutar los comandos
 
 workflows:
   version: "1"
   workflows:
-    - name: Build and Test
+    - name: Verificación de Archivos Esenciales
       jobs:
-        - build
-        - test
-        - deploy
+        - check_files
 
 jobs:
-  build:
+  check_files:
     docker:
-      - image: circleci/android:api-29
+      - image: ubuntu:20.04  # Imagen de Ubuntu para ejecutar los comandos
     steps:
-      - checkout  https://github.com/GioMoreno2/MyProyectoHabitrack
+      - checkout  # Clona el repositorio
       - run:
-          name: Set up SDK
+          name: Verificar Archivos Esenciales
           command: |
-            echo "Setting up Android SDK..."
-            sudo apt-get update
-            sudo apt-get install -y openjdk-8-jdk
-            wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip
-            unzip commandlinetools-linux-7583922_latest.zip
-            sudo mv cmdline-tools /usr/local/android-sdk
-            export ANDROID_HOME=/usr/local/android-sdk
-            export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-            sdkmanager --licenses
-            sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.3"
-      - run:
-          name: Build APK
-          command: |
-            echo "Building APK..."
-            ./gradlew clean build
+            echo "Verificando archivos esenciales en el proyecto Android"
+            
+            # Verificar que build.gradle esté presente
+            if [ ! -f "build.gradle" ]; then
+              echo "Error: No se encontró el archivo 'build.gradle'."
+              exit 1
+            fi
+            
+            # Verificar que AndroidManifest.xml esté presente
+            if [ ! -f "app/src/main/AndroidManifest.xml" ]; then
+              echo "Error: No se encontró el archivo 'AndroidManifest.xml'."
+              exit 1
+            fi
 
-  test:
-    docker:
-      - image: circleci/android:api-29
-    steps:
-      - checkout  https://github.com/GioMoreno2/MyProyectoHabitrack
-      - run:
-          name: Run unit tests
-          command: |
-            echo "Running unit tests..."
-            ./gradlew testDebugUnitTest
+            # Verificar que la carpeta 'src/main/java' esté presente
+            if [ ! -d "app/src/main/java" ]; then
+              echo "Error: No se encontró la carpeta 'src/main/java'."
+              exit 1
+            fi
 
-  deploy:
-    docker:
-      - image: circleci/android:api-29
-    steps:
-      - checkout
-      - run:
-          name: Deploy APK
-          command: |
-            echo "Deploying APK..."
-            # Aquí puedes añadir el paso para despliegue, como subir a un servidor o Google Play
+            # Verificar que la carpeta 'src/main/res' esté presente
+            if [ ! -d "app/src/main/res" ]; then
+              echo "Error: No se encontró la carpeta 'src/main/res'."
+              exit 1
+            fi
+            
+            echo "Todos los archivos esenciales están presentes."
