@@ -2,6 +2,11 @@ version: "v1.0"
 
 name: Android Simple Test Pipeline
 
+agent:
+  machine:
+    type: e1-standard-2  # Define el tipo de máquina o agente para ejecutar las tareas
+    os_image: ubuntu-2004  # Define la imagen del sistema operativo
+
 blocks:
   - name: Setup Android Environment
     task:
@@ -13,18 +18,24 @@ blocks:
           - mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/tools
           - yes | sdkmanager --licenses
           - sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
-      commands:
-        - ./gradlew dependencies
+      main:
+        commands:
+          - echo "Comprobando dependencias..."
+          - ./gradlew dependencies
 
   - name: Build Project
     task:
-      commands:
-        - ./gradlew assembleDebug
+      main:
+        commands:
+          - echo "Construyendo el proyecto..."
+          - ./gradlew assembleDebug
 
   - name: Run Unit Tests
     task:
-      commands:
-        - ./gradlew test
+      main:
+        commands:
+          - echo "Ejecutando pruebas unitarias..."
+          - ./gradlew test
 
 pipelines:
   default:
