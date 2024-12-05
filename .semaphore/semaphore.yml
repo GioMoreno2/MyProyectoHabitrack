@@ -1,5 +1,11 @@
 version: "v1.0"
-name: Android Layout Test Pipeline
+
+name: Mi primer prueba
+
+agent:
+  machine:
+    type: e1-standard-2  # Define el tipo de máquina
+    os_image: ubuntu2004  # Imagen del sistema operativo
 
 blocks:
   - name: Validate Layouts
