@@ -1,5 +1,4 @@
 version: "v1.0"
-
 name: Android Layout Test Pipeline
 
 blocks:
