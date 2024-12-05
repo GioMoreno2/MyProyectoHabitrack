@@ -1,52 +1,22 @@
-version: v1.0
-name: Prueba de Archivos en Proyecto Android
-
-# Configuración del agente que ejecutará los trabajos
-agent:
-  machine:
-    type: e1-standard-2  # Máquina estándar con 2 CPUs y 8 GB de RAM
-    os: ubuntu-20.04      # Sistema operativo Ubuntu para ejecutar los comandos
-
-workflows:
-  version: "1"
-  workflows:
-    - name: Verificación de Archivos Esenciales
-      jobs:
-        - check_files
-
 jobs:
-  check_files:
+  build:
     docker:
-      - image: ubuntu:20.04  # Imagen de Ubuntu para ejecutar los comandos
+      - image: circleci/android:api-29
     steps:
-      - checkout  # Clona el repositorio
+      - checkout
+      - restore_cache:
+          keys:
+            - gradle-dependencies-v1-{{ checksum "build.gradle" }}
+            - gradle-dependencies-v1-
       - run:
-          name: Verificar Archivos Esenciales
+          name: Configurar SDK de Android
           command: |
-            echo "Verificando archivos esenciales en el proyecto Android"
-            
-            # Verificar que build.gradle esté presente
-            if [ ! -f "build.gradle" ]; then
-              echo "Error: No se encontró el archivo 'build.gradle'."
-              exit 1
-            fi
-            
-            # Verificar que AndroidManifest.xml esté presente
-            if [ ! -f "app/src/main/AndroidManifest.xml" ]; then
-              echo "Error: No se encontró el archivo 'AndroidManifest.xml'."
-              exit 1
-            fi
-
-            # Verificar que la carpeta 'src/main/java' esté presente
-            if [ ! -d "app/src/main/java" ]; then
-              echo "Error: No se encontró la carpeta 'src/main/java'."
-              exit 1
-            fi
-
-            # Verificar que la carpeta 'src/main/res' esté presente
-            if [ ! -d "app/src/main/res" ]; then
-              echo "Error: No se encontró la carpeta 'src/main/res'."
-              exit 1
-            fi
-            
-            echo "Todos los archivos esenciales están presentes."
+            # Instalar SDK
+      - run:
+          name: Compilar APK
+          command: ./gradlew clean assembleDebug
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
+          key: gradle-dependencies-v1-{{ checksum "build.gradle" }}
