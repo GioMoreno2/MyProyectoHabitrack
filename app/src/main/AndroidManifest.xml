@@ -13,20 +13,27 @@
         android:theme="@style/Theme.MyHabitrack"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity_inicio"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".MainActivity_addhabito"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".MainActivity_login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity_register"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

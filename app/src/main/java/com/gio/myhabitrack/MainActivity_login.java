@@ -34,7 +34,7 @@ public class MainActivity_login extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnGoToRegister = findViewById(R.id.btnGoToRegister);
 
-        // Acción al presionar el botón de login
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,15 +47,15 @@ public class MainActivity_login extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        // Si el inicio de sesión es exitoso, obtener el usuario actual
+
                                         FirebaseUser user = mAuth.getCurrentUser();
 
-                                        // Redirigir a la actividad principal
-                                        Intent intent = new Intent(MainActivity_login.this, MainActivity.class);
+
+                                        Intent intent = new Intent(MainActivity_login.this, MainActivity_inicio.class);
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        // Si el inicio de sesión falla
+
                                         Toast.makeText(MainActivity_login.this, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -66,11 +66,11 @@ public class MainActivity_login extends AppCompatActivity {
             }
         });
 
-        // Acción al presionar el botón para ir al registro
+
         btnGoToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Redirigir a la actividad de registro
+
                 Intent intent = new Intent(MainActivity_login.this, MainActivity_register.class);
                 startActivity(intent);
             }

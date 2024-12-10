@@ -74,7 +74,7 @@ public class MainActivity_register extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent intent = new Intent(MainActivity_register.this, MainActivity.class);
+                                Intent intent = new Intent(MainActivity_register.this, MainActivity_inicio.class);
                                 startActivity(intent);
                                 finish();
                                 saveUserDataToDatabase(username, firstName, lastName, email, state);
@@ -134,7 +134,7 @@ public class MainActivity_register extends AppCompatActivity {
     }
 
     private void navigateToMainActivity() {
-        Intent intent = new Intent(MainActivity_register.this, MainActivity.class);
+        Intent intent = new Intent(MainActivity_register.this, MainActivity_inicio.class);
         startActivity(intent);
         finish();
     }
@@ -143,7 +143,7 @@ public class MainActivity_register extends AppCompatActivity {
         public String username, firstName, lastName, email, state;
 
         public User() {
-            // Constructor vacío requerido para Firebase
+
         }
 
         public User(String username, String firstName, String lastName, String email, String state) {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".MainActivity_addhabito">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivWelcomeImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:contentDescription="Imagen de bienvenida"
+        android:layout_marginBottom="16dp"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"/>
+
+
+    <TextView
+        android:id="@+id/tvWelcomeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Registrate en Habitrack!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/etHabitName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del hábito"
+        android:inputType="text"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Campo para la descripción del hábito -->
+    <EditText
+        android:id="@+id/etHabitDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción del hábito"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:padding="12dp"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Botón para guardar el hábito -->
+    <Button
+        android:id="@+id/btnSaveHabit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Guardar hábito"
+        android:backgroundTint="@color/amarillo"
+        android:textColor="@color/black"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"/>
+
+
+</LinearLayout>

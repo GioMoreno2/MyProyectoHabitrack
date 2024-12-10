@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#950288D1"
+    android:background="#5E25505B"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity_register">

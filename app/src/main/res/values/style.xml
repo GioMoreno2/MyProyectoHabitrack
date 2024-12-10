@@ -2,9 +2,13 @@
 
 
 <resources>
-    <style name="RoundedImageView" parent="Widget.MaterialComponents.ShapeableImageView">
+    <!-- Estilo personalizado para ShapeableImageView con bordes redondeados -->
+    <style name="RoundedImageView" >
+        <!-- Define la familia de esquinas como redondeadas -->
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50dp</item>
+        <!-- Tamaño de las esquinas, grande para hacerlo completamente circular -->
+        <item name="cornerSize">30%</item>
+        <!-- Fondo de la imagen redondeada -->
         <item name="android:background">@color/purple_200</item>
     </style>
 </resources>
